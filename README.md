@@ -17,31 +17,37 @@ This project implements a full-featured bank account management system with the 
 ## 🎯 Assignment Requirements
 
 ✅ **Collections and Abstract Data Types (ADTs)**
+
 - Implemented `IAccountService` interface as the ADT
 - Uses `List<Account>` and `List<Transaction>` collections
 - Clean abstraction separating interface from implementation
 
 ✅ **Bank Account Data Management System**
+
 - Full account lifecycle management
 - Deposit and withdrawal operations
 - Balance tracking and transaction history
 
 ✅ **Account Operations**
+
 - Create accounts with unique account numbers
 - Withdraw funds with validation
 - Deposit funds with automatic balance updates
 
 ✅ **Persistent Data Storage**
+
 - JSON-based file storage (no database)
 - Automatic save on every operation
 - Data survives application restarts
 
 ✅ **Unit Tests**
+
 - 35+ comprehensive tests using NUnit
 - Tests for all core functionality
 - Error handling and edge cases covered
 
 ✅ **Documentation**
+
 - Extensive XML comments on all classes
 - This comprehensive README
 - Inline code comments throughout
@@ -67,6 +73,7 @@ BankSystem/
 ## 🏗️ Architecture & Design Patterns
 
 ### 1. **Abstract Data Type (ADT) Design**
+
 ```csharp
 // IAccountService defines the contract
 public interface IAccountService
@@ -83,6 +90,7 @@ public class AccountService : IAccountService { /* ... */ }
 ```
 
 ### 2. **Separation of Concerns**
+
 - **Account.cs**: Data model with properties and generation logic
 - **Transaction.cs**: Transaction record as a separate entity
 - **IAccountService.cs**: Interface defining operations (contracts)
@@ -90,13 +98,16 @@ public class AccountService : IAccountService { /* ... */ }
 - **DataPersistence.cs**: Storage abstraction
 
 ### 3. **Collections Usage**
+
 ```csharp
 private List<Account> _accounts;              // Main collection
 public List<Transaction> Transactions { get; } // Per-account transactions
 ```
 
 ### 4. **Validation Strategy**
+
 All operations validate inputs before execution:
+
 ```csharp
 if (string.IsNullOrWhiteSpace(accountHolder))
     throw new ArgumentException("...");
@@ -114,6 +125,7 @@ if (account.Balance < amount)
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - .NET 7.0 or later
 - C# 11+ compiler
 - NUnit test framework (included via NuGet)
@@ -121,21 +133,25 @@ if (account.Balance < amount)
 ### Installation & Setup
 
 1. **Clone/Extract the project**
+
    ```bash
    cd BankSystem
    ```
 
 2. **Restore dependencies**
+
    ```bash
    dotnet restore
    ```
 
 3. **Build the project**
+
    ```bash
    dotnet build
    ```
 
 4. **Run the demo application**
+
    ```bash
    dotnet run --project BankSystem.csproj
    ```
@@ -146,6 +162,7 @@ if (account.Balance < amount)
    ```
 
 ### Output Verification
+
 - Demo will show account creation, deposits, withdrawals, and transactions
 - Data automatically saves to `BankData/accounts.json`
 - All 35+ unit tests should pass
@@ -155,9 +172,11 @@ if (account.Balance < amount)
 ### Core Classes
 
 #### **Account.cs**
+
 Represents a single bank account with properties and balance management.
 
 **Key Properties:**
+
 - `AccountNumber`: Unique identifier (auto-generated, format: `ACCT-XXXXXXXX`)
 - `AccountHolder`: Name of the account owner
 - `Balance`: Current account balance
@@ -166,6 +185,7 @@ Represents a single bank account with properties and balance management.
 - `CreatedDate`, `LastModifiedDate`: Timestamps
 
 **Key Methods:**
+
 ```csharp
 new Account();                          // Default constructor
 new Account("John Doe");                // Named constructor
@@ -174,14 +194,17 @@ ToString();                             // Formatted string representation
 ```
 
 #### **Transaction.cs**
+
 Represents a single transaction on an account.
 
 **Transaction Types:**
+
 - `Deposit`: Money added to account
 - `Withdrawal`: Money removed from account
 - `AccountCreation`: Initial account creation
 
 **Key Properties:**
+
 - `TransactionId`: Unique transaction identifier
 - `Type`: Transaction type (Deposit/Withdrawal/AccountCreation)
 - `Amount`: Transaction amount
@@ -190,9 +213,11 @@ Represents a single transaction on an account.
 - `Description`: Human-readable description
 
 #### **IAccountService.cs** (Abstract Data Type)
+
 Interface defining all available account operations.
 
 **Core Operations:**
+
 ```csharp
 Account CreateAccount(string accountHolder);
 Account Deposit(string accountNumber, decimal amount);
@@ -207,9 +232,11 @@ bool LoadData();
 ```
 
 #### **AccountService.cs**
+
 Complete implementation of the IAccountService interface with business logic.
 
 **Additional Utility Methods:**
+
 ```csharp
 int GetAccountCount();              // Total accounts
 int GetActiveAccountCount();        // Only active accounts
@@ -218,9 +245,11 @@ void ClearAllData();               // Reset system (testing)
 ```
 
 #### **DataPersistence.cs**
+
 Handles file-based persistence without a database.
 
 **Key Methods:**
+
 ```csharp
 bool SaveAccounts(List<Account> accounts);      // Save to JSON
 List<Account> LoadAccounts();                   // Load from JSON
@@ -232,6 +261,7 @@ string GetDataFilePath();                       // Get storage location
 ## 📝 Usage Examples
 
 ### Example 1: Create Account and Deposit
+
 ```csharp
 IAccountService service = new AccountService();
 
@@ -247,6 +277,7 @@ Console.WriteLine($"New Balance: ${updated.Balance:F2}");
 ```
 
 ### Example 2: Withdraw and Check Balance
+
 ```csharp
 // Withdraw funds
 Account updated = service.Withdraw(account.AccountNumber, 250m);
@@ -260,6 +291,7 @@ Console.WriteLine($"Current Balance: ${balance:F2}");
 ```
 
 ### Example 3: View Transaction History
+
 ```csharp
 List<Transaction> history = service.GetTransactionHistory(account.AccountNumber);
 
@@ -279,6 +311,7 @@ foreach (var transaction in history)
 ```
 
 ### Example 4: Error Handling
+
 ```csharp
 try
 {
@@ -315,6 +348,7 @@ catch (InvalidOperationException ex)
 ```
 
 ### Example 5: Multi-Account Operations
+
 ```csharp
 // Create multiple accounts
 Account alice = service.CreateAccount("Alice");
@@ -398,6 +432,7 @@ dotnet test --filter "CreateAccount_WithValidName_ShouldSucceed"
 ```
 
 ### Test Output Example
+
 ```
 Passed:  CreateAccount_WithValidName_ShouldSucceed
 Passed:  Deposit_ValidAmount_ShouldIncreaseBalance
@@ -411,15 +446,17 @@ Passed:  LoadData_PreviouslySavedData_ShouldRestore
 ## 💾 Data Persistence
 
 ### Storage Format
+
 Data is stored in `BankData/accounts.json` in JSON format for human readability.
 
 **Example JSON Structure:**
+
 ```json
 [
   {
     "accountNumber": "ACCT-K7M2P9Q5",
     "accountHolder": "Alice Johnson",
-    "balance": 750.00,
+    "balance": 750.0,
     "createdDate": "2024-01-15T10:30:45.1234567",
     "lastModifiedDate": "2024-01-15T10:30:47.1234567",
     "isActive": true,
@@ -427,16 +464,16 @@ Data is stored in `BankData/accounts.json` in JSON format for human readability.
       {
         "transactionId": "A1B2C3D4",
         "transactionType": "AccountCreation",
-        "amount": 0.00,
-        "balanceAfter": 0.00,
+        "amount": 0.0,
+        "balanceAfter": 0.0,
         "timestamp": "2024-01-15T10:30:45.1234567",
         "description": "Account created"
       },
       {
         "transactionId": "E5F6G7H8",
         "transactionType": "Deposit",
-        "amount": 1000.00,
-        "balanceAfter": 1000.00,
+        "amount": 1000.0,
+        "balanceAfter": 1000.0,
         "timestamp": "2024-01-15T10:30:46.1234567",
         "description": "Deposit of $1000.00"
       }
@@ -446,6 +483,7 @@ Data is stored in `BankData/accounts.json` in JSON format for human readability.
 ```
 
 ### Automatic Persistence
+
 - Data is **automatically saved** after every operation
 - No manual save calls required (but available via `SaveData()`)
 - Data loads automatically on application startup
@@ -477,6 +515,7 @@ This project demonstrates:
 ## 🐛 Troubleshooting
 
 ### Build Issues
+
 ```bash
 # Clean build
 dotnet clean
@@ -487,11 +526,13 @@ dotnet restore
 ```
 
 ### Data Not Persisting
+
 - Check that `BankData/` directory is created
 - Verify write permissions in the application directory
 - Check `accounts.json` file for valid JSON format
 
 ### Tests Failing
+
 - Ensure NUnit packages are properly installed
 - Run `dotnet test` with `--verbosity=detailed` for details
 - Check that no other instances are running
@@ -511,7 +552,7 @@ This project is provided for educational purposes.
 
 **Key Implementation Highlights:**
 
-1. **ADT Design**: The `IAccountService` interface provides a clean abstraction that separates the *what* (operations) from the *how* (implementation details).
+1. **ADT Design**: The `IAccountService` interface provides a clean abstraction that separates the _what_ (operations) from the _how_ (implementation details).
 
 2. **Robust Validation**: Every operation validates its inputs before executing, preventing invalid states.
 
@@ -525,6 +566,6 @@ This project is provided for educational purposes.
 
 ---
 
-**Last Updated**: January 2024
+**Last Updated**: June 2026
 **Version**: 1.0.0
 **Status**: Complete and Production-Ready
