@@ -1,0 +1,28 @@
+[
+  {
+    "accountNumber": "ACCT-3RYIFMRF",
+    "accountHolder": "Daniel Ochinyabo",
+    "balance": 200,
+    "createdDate": "2026-06-23T23:39:49.0257443+01:00",
+    "lastModifiedDate": "2026-06-23T23:43:05.1099023+01:00",
+    "isActive": true,
+    "transactions": [
+      {
+        "transactionId": "c5f5bc44",
+        "transactionType": "AccountCreation",
+        "amount": 0,
+        "balanceAfter": 0,
+        "timestamp": "2026-06-23T23:39:49.0556746+01:00",
+        "description": "Account created"
+      },
+      {
+        "transactionId": "1582240c",
+        "transactionType": "Deposit",
+        "amount": 200,
+        "balanceAfter": 200,
+        "timestamp": "2026-06-23T23:43:05.1099269+01:00",
+        "description": "Deposit of $200.00"
+      }
+    ]
+  }
+]

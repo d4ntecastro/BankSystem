@@ -1,0 +1,46 @@
+# Build output
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+
+# Logs
+*.log
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+# Environment files
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Test results
+TestResults/
+*.trx
